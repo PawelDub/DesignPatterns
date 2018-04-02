@@ -1,9 +1,8 @@
 package comparing;
 
-/**
- * Created by Pawel_D on 2017-07-02.
- */
-public class Czlowiek implements Comparable<Czlowiek> {
+public class Czlowiek
+        implements Comparable<Czlowiek>
+{
     private char sex;
     private String name;
     private String surname;
@@ -59,12 +58,6 @@ public class Czlowiek implements Comparable<Czlowiek> {
     @Override
     public int compareTo(Czlowiek o) {
         int porownaneNazwiska = surname.compareTo(o.surname);
-
-        if(porownaneNazwiska == 0) {
-            return name.compareTo(o.name);
-        }
-        else {
-            return porownaneNazwiska;
-        }
+        return porownaneNazwiska == 0 ? name.compareTo(o.name) :porownaneNazwiska;
     }
 }
