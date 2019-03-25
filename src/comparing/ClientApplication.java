@@ -21,32 +21,42 @@ public class ClientApplication {
         czlowieki.add(new Czlowiek('M', "Anatol", "Amol", 24));
         czlowieki.add(new Czlowiek('K', "Kinga", "Miklasz", 49));
 
+        List<Czlowiek> czlowieki1 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+        List<Czlowiek> czlowieki2 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+        List<Czlowiek> czlowieki3 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+        List<Czlowiek> czlowieki4 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+        List<Czlowiek> czlowieki5 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+        List<Czlowiek> czlowieki6 = (List<Czlowiek>) ((ArrayList<Czlowiek>) czlowieki).clone();
+
         System.out.println("nieposortowane");
         czlowieki.forEach(System.out::println);
         System.out.println("=====================");
 
-        Collections.sort(czlowieki);
+        Collections.sort(czlowieki1);
         System.out.println("posortowane po surname");
-        czlowieki.forEach(System.out::println);
+        czlowieki1.forEach(System.out::println);
         System.out.println("=====================");
 
-        Collections.sort(czlowieki, new KomparatorPlec());
+        Collections.sort(czlowieki2, new KomparatorPlec());
         System.out.println("Posortowane po plci: ");
-        czlowieki.forEach(System.out::println);
+        czlowieki2.forEach(System.out::println);
         System.out.println("=====================");
 
         System.out.println("Posortowane: ");
-        Collections.sort(czlowieki);
-        czlowieki.forEach(System.out::println);
+        Collections.sort(czlowieki3);
+        czlowieki3.forEach(System.out::println);
         System.out.println("=====================");
 
         System.out.println("Posortowane W JAVA 8: po name nastepnie po surname i na końcu po age");
-        czlowieki.stream().sorted(comparatorByName().thenComparing(comapratorBySurname())
-                                                    .thenComparingInt(Czlowiek::getAge))
-                .forEach(e -> System.out.println(e));
+        czlowieki4
+                .stream()
+                .sorted(comparatorByName()
+                        .thenComparing(comapratorBySurname())
+                        .thenComparingInt(Czlowiek::getAge))
+                .forEach(System.out::println);
 
         System.out.println("Posortowane W JAVA 8: po name nastepnie po surname");
-        czlowieki
+        czlowieki5
                 .stream()
                 .sorted(Comparator.comparing(Czlowiek::getName)
                         .thenComparing(Czlowiek::getSurname)

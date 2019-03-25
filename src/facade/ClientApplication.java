@@ -14,6 +14,7 @@ public class ClientApplication {
         simpleOrderSystem.placeOrder(productCD);
         System.out.println("---------------------------------------");
         simpleOrderSystem.placeOrder(productMp3);
+        System.out.println("---------------------------------------");
 
     }
 }

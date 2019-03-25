@@ -1,6 +1,5 @@
 package composite.composite;
 
-import com.sun.org.apache.regexp.internal.RE;
 import composite.component.Resource;
 
 import java.util.ArrayList;

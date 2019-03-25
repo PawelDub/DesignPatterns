@@ -30,11 +30,12 @@ public class NameList implements HasIterator {
 
         @Override
         public Object next() {
-            if (hasNext()) {
-                return names[currentIndex];
-            } else {
-                return null;
-            }
+            return hasNext() ? names[currentIndex] : null;
+//            if (hasNext()) {
+//                return names[currentIndex];
+//            } else {
+//                return null;
+//            }
         }
     }
 }
