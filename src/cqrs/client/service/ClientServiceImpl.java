@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class ClientServiceImpl implements ClientService {
 
-ClientQueryRepository clientQueryRepository = new ClientQueryRepositoryImpl();
+    ClientQueryRepository clientQueryRepository = new ClientQueryRepositoryImpl();
     CommandDispatcher commandDispatcher;
 
     public ClientServiceImpl(CommandDispatcher commandDispatcher) {

@@ -1,6 +1,8 @@
 package cqrs;
 
-import cqrs.cgrs.*;
+import cqrs.cgrs.Command;
+import cqrs.cgrs.CommandBus;
+import cqrs.cgrs.CommandHandler;
 import cqrs.client.command.CreateClientCommand;
 import cqrs.client.command.DeleteClientCommand;
 import cqrs.client.command.UpdateClientCommand;
@@ -9,7 +11,6 @@ import cqrs.client.handler.DeleteClientHandler;
 import cqrs.client.handler.UpdateClientHandler;
 import cqrs.client.model.Client;
 import cqrs.client.model.ClientDto;
-import cqrs.client.repository.ClientCommandRepository;
 import cqrs.client.repository.ClientCommandRepositoryImpl;
 import cqrs.client.service.ClientService;
 import cqrs.client.service.ClientServiceImpl;
@@ -17,21 +18,32 @@ import cqrs.client.service.ClientServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 public class ClientMain {
 
-    public static void main(String[] args) {
+    private static Map<Class, CommandHandler<? extends Command>> handlers;
+
+    static {
+        handlers = prepare();
+    }
+
+    private static Map<Class, CommandHandler<? extends Command>> prepare() {
         ClientCommandRepositoryImpl clientCommandRepository = new ClientCommandRepositoryImpl();
 
-        CreateClientHandler createClientHandler = new CreateClientHandler(clientCommandRepository);
-        UpdateClientHandler updateClientHandler = new UpdateClientHandler(clientCommandRepository);
-        DeleteClientHandler deleteClientHandler = new DeleteClientHandler(clientCommandRepository);
+        CommandHandler createClientHandler = new CreateClientHandler(clientCommandRepository);
+        CommandHandler updateClientHandler = new UpdateClientHandler(clientCommandRepository);
+        CommandHandler deleteClientHandler = new DeleteClientHandler(clientCommandRepository);
 
         Map<Class, CommandHandler<? extends Command>> handlers = new HashMap<>();
         handlers.put(CreateClientCommand.class, createClientHandler);
         handlers.put(UpdateClientCommand.class, updateClientHandler);
         handlers.put(DeleteClientCommand.class, deleteClientHandler);
+
+        return handlers;
+    }
+
+
+    public static void main(String[] args) {
 
         CommandBus commandBus = new CommandBus(handlers);
 
